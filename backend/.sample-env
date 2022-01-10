@@ -1,0 +1,2 @@
+DB_USER="put your username for postgres here"
+DB_PASSWORD="put your passwrod for postgres here "

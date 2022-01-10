@@ -1,0 +1,22 @@
+import { ItemController } from "../controllers/item.controller";
+
+export class Routes {
+  constructor() {
+    this.itemController = new ItemController();
+  }
+
+  routes(app) {
+    app
+        .route("/item")
+        .get(this.itemController.showAll.bind(this.itemController))
+        .post(this.itemController.create.bind(this.itemController));
+        
+
+    app
+        .route("/mural/:id")
+        .get(this.itemController.show.bind(this.itemController))
+        .put(this.itemController.update.bind(this.itemController))
+        .delete(this.itemController.delete.bind(this.itemController))
+        
+  }
+}

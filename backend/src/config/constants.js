@@ -1,0 +1,1 @@
+export const RED = "\x1b[31m";
