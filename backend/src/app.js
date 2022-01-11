@@ -2,14 +2,14 @@
 import express from "express";
 import bodyParser from "body-parser";
 import "dotenv/config";
-//import { Routes } from "./api/routes";
+import { Routes } from "./api/routes.js";
 import cors from "cors";
 
 class App {
   constructor() {
     this.app = express();
     this.config();
-    //this.routePrv.routes(this.app);
+    new Routes().routes(this.app)
   }
 
   config() {

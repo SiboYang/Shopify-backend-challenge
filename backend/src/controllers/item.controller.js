@@ -1,7 +1,6 @@
-import { Request, Response } from "express";
-import { Item } from "../models/item.model";
+import { Item } from "../models/item.model.js";
 import { EmptyResultError, ValidationError } from "sequelize";
-import { ItemService } from "../services/item.service";
+import { ItemService } from "../services/item.service.js";
 
 export class ItemController {
     constructor() {
@@ -100,6 +99,7 @@ export class ItemController {
               const items = await this.itemService.showAll(limit, offset)
               res.status(200).json(items)
           } catch (e) {
+              console.log(e);
               res.status(500).json({error: "Something went wrong"});
           }
       }

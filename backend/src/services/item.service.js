@@ -1,4 +1,5 @@
-import { Item } from "../models/item.model";
+import { Item } from "../models/item.model.js";
+import { RED } from "../config/constants.js";
 
 export class ItemService {
   /**

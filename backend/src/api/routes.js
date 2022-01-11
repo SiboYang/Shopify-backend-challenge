@@ -1,4 +1,4 @@
-import { ItemController } from "../controllers/item.controller";
+import { ItemController } from "../controllers/item.controller.js";
 
 export class Routes {
   constructor() {
