@@ -13,7 +13,7 @@ export class Routes {
         
 
     app
-        .route("/mural/:id")
+        .route("/item/:id")
         .get(this.itemController.show.bind(this.itemController))
         .put(this.itemController.update.bind(this.itemController))
         .delete(this.itemController.delete.bind(this.itemController))
