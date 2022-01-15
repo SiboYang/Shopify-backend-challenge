@@ -28,7 +28,7 @@ Item.init(
       }
     },
     {
-      tableName: "items",
+      modelName: "items",
       sequelize: database,
     }
   );
