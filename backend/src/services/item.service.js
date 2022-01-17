@@ -66,6 +66,7 @@ export class ItemService {
       const items = await Item.findAndCountAll({
         limit: limit,
         offset: offset,
+        order: [["id"]]
       });
       return items;
     } catch (e) {
