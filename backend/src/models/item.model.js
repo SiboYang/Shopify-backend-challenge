@@ -2,7 +2,6 @@ import { Model, DataTypes } from "sequelize";
 import { database } from "../config/database.js";
 
 export class Item extends Model {}
-  
 Item.init(
     {
       id: {
@@ -15,7 +14,7 @@ Item.init(
         allowNull: false,
       },
       count: {
-        type: new DataTypes.STRING(128),
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
       category: {

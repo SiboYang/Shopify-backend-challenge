@@ -1,4 +1,4 @@
-import { Table, Button } from "antd";
+import { Table, Button, Form  } from "antd";
 import { useEffect, useState } from "react";
 import axios from "../axios.js";
 import NewItemForm from "./newItemForm.js";
@@ -9,6 +9,7 @@ const ItemTable = () => {
   const [isCreating, setIsCreating] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
   const [oldValue, setOldValue] = useState({});
+  const [form] = Form.useForm();
   const [pagination, setPagination] = useState({
     page: 1,
     limit: 10,
@@ -107,6 +108,7 @@ const ItemTable = () => {
   return (
     <div>
       <Button onClick={() => showCreate()}>Create</Button>
+      
       <NewItemForm
         visible={isCreating}
         onCancel={() => hideCreate()}

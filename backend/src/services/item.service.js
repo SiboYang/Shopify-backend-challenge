@@ -1,5 +1,6 @@
 import { Item } from "../models/item.model.js";
 import { RED } from "../config/constants.js";
+import { Op } from "sequelize";
 
 export class ItemService {
   /**
@@ -60,12 +61,22 @@ export class ItemService {
    * Show all items (paginated)
    * @param {number} limit page size
    * @param {number} offset page number
+   * @param {Object} filter
    */
-  async showAll(limit, offset) {
+  async showAll(limit, offset, filter) {
     try {
+      console.log(filter);
       const items = await Item.findAndCountAll({
         limit: limit,
         offset: offset,
+        where: {
+          [Op.and]: [
+            {name: {[Op.regexp]: `^${filter.name}`}},
+            {brand: {[Op.regexp]: `^${filter.brand}`}},
+            {category: {[Op.regexp]: `^${filter.category}`}},
+            {count: {[Op.between]: [filter.countStart, filter.countEnd]}}
+          ]
+        },
         order: [["id"]]
       });
       return items;
