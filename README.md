@@ -8,6 +8,13 @@ Project link: https://shopify-sibo.herokuapp.com/ (I have already added some ite
  - **Delete** created items
  - **View** a list of created items (with pagination implemented)
  - Extra feature:  **Filtering** based on metadata of items
+## Backend Structure
+To make the project to be extendable as mentioned in the requirement, I split the main backend logic into three folders, /controllers, /models, and /services
+In short:
+ - /models: is for the definition of tables
+ - /services: is for methods to perform operations with one or more models
+ - /controllers: is where we write business logic to use the methods that provided in the services folder
+
 ## Getting Started
 
 If you wish to test the project locally
