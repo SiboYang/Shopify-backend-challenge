@@ -65,15 +65,15 @@ export class ItemService {
    */
   async showAll(limit, offset, filter) {
     try {
-      console.log(filter);
       const items = await Item.findAndCountAll({
         limit: limit,
         offset: offset,
         where: {
           [Op.and]: [
-            {name: {[Op.regexp]: `^${filter.name}`}},
-            {brand: {[Op.regexp]: `^${filter.brand}`}},
-            {category: {[Op.regexp]: `^${filter.category}`}},
+            // ?i to ignore case when matching
+            {name: {[Op.regexp]: `(?i)^${filter.name}`}},
+            {brand: {[Op.regexp]: `(?i)^${filter.brand}`}},
+            {category: {[Op.regexp]: `(?i)^${filter.category}`}},
             {count: {[Op.between]: [filter.countStart, filter.countEnd]}}
           ]
         },

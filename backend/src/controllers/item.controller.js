@@ -74,7 +74,7 @@ export class ItemController {
   }
 
   /**
-   * DELETE /item/:od delete item by id
+   * DELETE /item/:id delete item by id
    * @param req
    * @param res
    */
@@ -96,18 +96,17 @@ export class ItemController {
     const limit = Number(req.query.limit ?? 120);
     const offset = Number(req.query.page ?? 0) * limit;
     const filter = {
-      name: req.params.name ?? "",
-      countStart: Number(req.params.count ?? 0),
-      countEnd: Number(req.params.count ?? Number.MAX_SAFE_INTEGER),
-      category: req.params.category ?? "",
-      brand: req.params.brand ?? "",
+      name: req.query.name ?? "",
+      countStart: Number(req.query.countStart ?? 0),
+      countEnd: Number(req.query.countEnd ?? Number.MAX_SAFE_INTEGER),
+      category: req.query.category ?? "",
+      brand: req.query.brand ?? "",
     };
 
     try {
       const items = await this.itemService.showAll(limit, offset, filter);
       res.status(200).json(items);
     } catch (e) {
-      console.log(e);
       res.status(500).json({ error: "Something went wrong" });
     }
   }

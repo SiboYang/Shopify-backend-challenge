@@ -1,4 +1,4 @@
-import { Table, Button, Form  } from "antd";
+import { Table, Button, Form, Input, InputNumber } from "antd";
 import { useEffect, useState } from "react";
 import axios from "../axios.js";
 import NewItemForm from "./newItemForm.js";
@@ -10,9 +10,12 @@ const ItemTable = () => {
   const [isUpdating, setIsUpdating] = useState(false);
   const [oldValue, setOldValue] = useState({});
   const [form] = Form.useForm();
+  const [filterValue, setFilterValue] = useState({});
   const [pagination, setPagination] = useState({
     page: 1,
     limit: 10,
+    pageSizeOptions: ["5", "10", "20", "30"],
+    defaultPageSize: 5,
     showSizeChanger: true,
     onChange: (page, size) => {
       setPagination({
@@ -25,7 +28,7 @@ const ItemTable = () => {
 
   useEffect(() => {
     getItems(pagination.limit, pagination.page);
-  }, [pagination.page, pagination.limit, isCreating, isUpdating]);
+  }, [pagination.page, pagination.limit, isCreating, isUpdating, filterValue]);
 
   const columns = [
     {
@@ -77,10 +80,11 @@ const ItemTable = () => {
         params: {
           limit,
           page: page - 1,
+          ...filterValue,
         },
       })
       .then((res) => {
-        console.log(res.data.rows);
+        console.log(pagination);
         setPagination((pagination) => ({
           ...pagination,
           total: res.data.count,
@@ -105,10 +109,46 @@ const ItemTable = () => {
     setIsUpdating(false);
   };
 
+  const handleSearch = (values) => {
+    setPagination((pagination) => ({
+      ...pagination,
+      page: 1,
+      current: 1
+    }));
+    setFilterValue(values);
+  };
+
   return (
     <div>
       <Button onClick={() => showCreate()}>Create</Button>
-      
+      <Form
+        form={form}
+        layout="inline"
+        onFinish={handleSearch}
+        autoComplete="off"
+      >
+        <Form.Item label="Name" name="name">
+          <Input />
+        </Form.Item>
+        <Form.Item label="Brand" name="brand">
+          <Input />
+        </Form.Item>
+        <Form.Item label="Category" name="category">
+          <Input />
+        </Form.Item>
+        <Form.Item label="Count" name="countStart">
+          <InputNumber />
+        </Form.Item>
+        <span>to</span>
+        <Form.Item name="countEnd">
+          <InputNumber />
+        </Form.Item>
+        <Form.Item>
+          <Button type="primary" htmlType="submit">
+            Search
+          </Button>
+        </Form.Item>
+      </Form>
       <NewItemForm
         visible={isCreating}
         onCancel={() => hideCreate()}
