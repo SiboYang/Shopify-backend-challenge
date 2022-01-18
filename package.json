@@ -1,0 +1,24 @@
+{
+  "name": "shopify-backend-challenge",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "cd frontend && npm run-script build",
+    "install-client": "cd frontend && npm install",
+    "install-server": "cd backend && yarn",
+    "start": "yarn install-server && cd backend && yarn start",
+    "heroku-postbuild": "yarn install-client && yarn run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SiboYang/Shopify-backend-challenge.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SiboYang/Shopify-backend-challenge/issues"
+  },
+  "homepage": "https://github.com/SiboYang/Shopify-backend-challenge#readme"
+}
