@@ -1,5 +1,5 @@
 # Shopify-backend-challenge
-Project link: https://shopify-sibo.herokuapp.com/ (I have already added some items in the database to help you testing)
+Project link: https://shopify-sibo.herokuapp.com/ (I have already added some items in the database to help you test)
 
 ## Features
 
