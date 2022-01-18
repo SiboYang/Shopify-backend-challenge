@@ -9,10 +9,10 @@ import { database } from "./config/database.js"
 class App {
   constructor() {
     this.app = express();
+    this.config();
     if (process.env.NODE_ENV === "production") {
       this.app.use(express.static("../../frontend/build"));
     }
-    this.config();
     new Routes().routes(this.app)
     database.sync();
   }
