@@ -134,9 +134,8 @@ export class ItemController {
       // clean the data for parsing
       const cleaned_items = items.rows.map(record => record.dataValues)
       const csvData = parseCSV(cleaned_items)
-      res.status(200).attachment("items.csv").send(csvData);
+      res.status(200).attachment("items.csv").send(Buffer.from(csvData));
     } catch (e) {
-      console.log(e)
       res.status(500).json({ error: "Something went wrong" });
     }
     
