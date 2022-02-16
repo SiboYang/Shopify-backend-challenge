@@ -63,7 +63,17 @@ export class ItemService {
    * @param {number} offset page number
    * @param {Object} filter
    */
-  async showAll(limit, offset, filter) {
+  async showAll(
+    limit = Number.MAX_SAFE_INTEGER,
+    offset = 0,
+    filter = {
+      name: "",
+      countStart: 0,
+      countEnd: Number.MAX_SAFE_INTEGER,
+      category: "",
+      brand: "",
+    }
+  ) {
     try {
       const items = await Item.findAndCountAll({
         limit: limit,
@@ -71,13 +81,13 @@ export class ItemService {
         where: {
           [Op.and]: [
             // ?i to ignore case when matching
-            {name: {[Op.regexp]: `(?i)^${filter.name}`}},
-            {brand: {[Op.regexp]: `(?i)^${filter.brand}`}},
-            {category: {[Op.regexp]: `(?i)^${filter.category}`}},
-            {count: {[Op.between]: [filter.countStart, filter.countEnd]}}
-          ]
+            { name: { [Op.regexp]: `(?i)^${filter?.name}` } },
+            { brand: { [Op.regexp]: `(?i)^${filter?.brand}` } },
+            { category: { [Op.regexp]: `(?i)^${filter?.category}` } },
+            { count: { [Op.between]: [filter?.countStart, filter?.countEnd] } },
+          ],
         },
-        order: [["id"]]
+        order: [["id"]],
       });
       return items;
     } catch (e) {
@@ -92,16 +102,16 @@ export class ItemService {
    */
   async delete(itemId) {
     try {
-        const createdItem = await Item.destroy({
-            where: {
-                id: itemId
-            },
-            rejectOnEmpty: true
-        });
-        return createdItem;
-      } catch (e) {
-        console.error(RED, e);
-        throw e;
-      }
+      const createdItem = await Item.destroy({
+        where: {
+          id: itemId,
+        },
+        rejectOnEmpty: true,
+      });
+      return createdItem;
+    } catch (e) {
+      console.error(RED, e);
+      throw e;
+    }
   }
 }

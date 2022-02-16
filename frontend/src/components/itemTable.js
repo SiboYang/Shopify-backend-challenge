@@ -74,6 +74,11 @@ const ItemTable = () => {
     await axios.delete(`item/${id}`);
     getItems(pagination.limit, pagination.page);
   };
+
+  const handleExport = async () => {
+    await axios.post("item/export")
+  }
+
   const getItems = (limit, page) => {
     axios
       .get("item", {
@@ -121,6 +126,7 @@ const ItemTable = () => {
   return (
     <div>
       <Button onClick={() => showCreate()}>Create</Button>
+      <Button onClick={() => handleExport()}>Export</Button>
       <Form
         form={form}
         layout="inline"

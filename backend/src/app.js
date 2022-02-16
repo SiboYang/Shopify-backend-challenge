@@ -3,7 +3,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import "dotenv/config";
-import { Routes } from "./api/routes.js";
+import { ItemRoutes } from "./api/itemRoutes.js";
 import cors from "cors";
 import { database } from "./config/database.js"
 
@@ -14,7 +14,7 @@ class App {
     if (process.env.NODE_ENV === "production") {
       this.app.use(express.static("../frontend/build"));
     }
-    new Routes().routes(this.app)
+    new ItemRoutes().routes(this.app)
     database.sync();
   }
 

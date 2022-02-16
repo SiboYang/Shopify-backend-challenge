@@ -1,6 +1,7 @@
 import { Item } from "../models/item.model.js";
 import { EmptyResultError, ValidationError } from "sequelize";
 import { ItemService } from "../services/item.service.js";
+import parseCSV from "../utils/csvParser.js"
 
 export class ItemController {
   constructor() {
@@ -92,6 +93,19 @@ export class ItemController {
     }
   }
 
+  /**
+   * GET /item return the items based on the filter
+   * @param req 
+   * HTTP request containing the attributes for filtering:
+   * {
+   *    name: string;
+   *    countStart: number;
+   *    countEnd: string;
+   *    brand: string;
+   *    category: string;
+   * }
+   * @param res 
+   */
   async showAll(req, res) {
     const limit = Number(req.query.limit ?? 120);
     const offset = Number(req.query.page ?? 0) * limit;
@@ -110,4 +124,22 @@ export class ItemController {
       res.status(500).json({ error: "Something went wrong" });
     }
   }
+
+  /**
+   * GET /item/export   export a csv file of all the items
+   */
+  async exportCSV(req, res) {
+    try {
+      const items = await this.itemService.showAll();
+      // clean the data for parsing
+      const cleaned_items = items.rows.map(record => record.dataValues)
+      const csvData = parseCSV(cleaned_items)
+      res.status(200).attachment("items.csv").send(csvData);
+    } catch (e) {
+      console.log(e)
+      res.status(500).json({ error: "Something went wrong" });
+    }
+    
+  }
+
 }
