@@ -79,9 +79,7 @@ const ItemTable = () => {
   const handleExport = async () => {
     try {
       const blobData = await axios.post("item/export", {responseType: "blob"})
-      console.log(blobData)
       const data = blobData.data;
-      console.log(data)
       if (data) {
         download(data, "items.csv")
       } else {
