@@ -119,8 +119,10 @@ export class ItemController {
 
     try {
       const items = await this.itemService.showAll(limit, offset, filter);
+      console.log(this)
       res.status(200).json(items);
     } catch (e) {
+      
       res.status(500).json({ error: "Something went wrong" });
     }
   }
@@ -132,8 +134,8 @@ export class ItemController {
     try {
       const items = await this.itemService.showAll();
       // clean the data for parsing
-      const cleaned_items = items.rows.map(record => record.dataValues)
-      const csvData = parseCSV(cleaned_items)
+      const cleanedItems = items.rows.map(record => record.dataValues)
+      const csvData = parseCSV(cleanedItems)
       res.status(200).attachment("items.csv").send(Buffer.from(csvData));
     } catch (e) {
       res.status(500).json({ error: "Something went wrong" });
