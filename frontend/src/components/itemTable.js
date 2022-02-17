@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "../axios.js";
 import NewItemForm from "./newItemForm.js";
 import UpdateForm from "./updateForm.js";
+import download from "downloadjs"
 
 const ItemTable = () => {
   const [items, setItems] = useState([]);
@@ -76,7 +77,19 @@ const ItemTable = () => {
   };
 
   const handleExport = async () => {
-    await axios.post("item/export")
+    try {
+      const blobData = await axios.post("item/export", {responseType: "blob"})
+      console.log(blobData)
+      const data = blobData.data;
+      console.log(data)
+      if (data) {
+        download(data, "items.csv")
+      } else {
+        console.log("Something went wrong")
+      }
+    } catch(e) {
+      throw e;
+    }
   }
 
   const getItems = (limit, page) => {
