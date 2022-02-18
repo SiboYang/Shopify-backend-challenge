@@ -81,10 +81,10 @@ export class ItemService {
         where: {
           [Op.and]: [
             // ?i to ignore case when matching
-            { name: { [Op.regexp]: `(?i)^${filter?.name}` } },
-            { brand: { [Op.regexp]: `(?i)^${filter?.brand}` } },
-            { category: { [Op.regexp]: `(?i)^${filter?.category}` } },
-            { count: { [Op.between]: [filter?.countStart, filter?.countEnd] } },
+            { name: { [Op.regexp]: `(?i)^${filter.name}` } },
+            { brand: { [Op.regexp]: `(?i)^${filter.brand}` } },
+            { category: { [Op.regexp]: `(?i)^${filter.category}` } },
+            { count: { [Op.between]: [filter.countStart, filter.countEnd] } },
           ],
         },
         order: [["id"]],
