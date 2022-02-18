@@ -131,16 +131,21 @@ export class ItemController {
    * GET /item/export   export a csv file of all the items
    */
   async exportCSV(req, res) {
+    const fields = [
+      { label: "id", value: "id" },
+      { label: "name", value: "name" },
+      { label: "count", value: "count" },
+      { label: "category", value: "category" },
+      { label: "brand", value: "brand" },
+    ];
     try {
       const items = await this.itemService.showAll();
       // clean the data for parsing
       const cleanedItems = items.rows.map(record => record.dataValues)
-      const csvData = parseCSV(cleanedItems)
+      const csvData = parseCSV(fields, cleanedItems)
       res.status(200).attachment("items.csv").send(Buffer.from(csvData));
     } catch (e) {
       res.status(500).json({ error: "Something went wrong" });
-    }
-    
+    } 
   }
-
 }
